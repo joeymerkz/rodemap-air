@@ -114,4 +114,7 @@ object Prefs {
     val ADVERTISE_AUDIO = bool("advertise_audio", true, restart = true)
     val LAUNCH_ON_CONNECT = bool("launch_on_connect", true)
     val USB_ONLY = bool("usb_only", false, restart = true)
+    // Rodemap account link (see link/RodemapLink.kt); empty token = not linked
+    val RODEMAP_TOKEN = str("rodemap_token", "")
+    val RODEMAP_RECEIVER_ID = str("rodemap_receiver_id", "")
 }
