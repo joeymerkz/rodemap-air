@@ -29,10 +29,12 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import io.github.jqssun.airplay.Prefs
 import io.github.jqssun.airplay.R
+import io.github.jqssun.airplay.link.RodemapLink
 import io.github.jqssun.airplay.appSettingsIntent
 import io.github.jqssun.airplay.viewmodel.MainViewModel
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @Composable
@@ -59,6 +61,7 @@ fun SettingsScreen(viewModel: MainViewModel) {
     val bootAutoStart by viewModel.pref(Prefs.BOOT_AUTO_START).collectAsState()
     val runInBackground by viewModel.pref(Prefs.RUN_IN_BACKGROUND).collectAsState()
     val serverPort by viewModel.pref(Prefs.SERVER_PORT).collectAsState()
+    val rodemapToken by viewModel.pref(Prefs.RODEMAP_TOKEN).collectAsState()
     val audioLatencyMs by viewModel.pref(Prefs.AUDIO_LATENCY_MS).collectAsState()
     val forceSwAlac by viewModel.pref(Prefs.FORCE_SW_ALAC).collectAsState()
     val forceSwAac by viewModel.pref(Prefs.FORCE_SW_AAC).collectAsState()
@@ -115,6 +118,39 @@ fun SettingsScreen(viewModel: MainViewModel) {
             checked = runInBackground,
             onCheckedChange = { viewModel.set(Prefs.RUN_IN_BACKGROUND, it) }
         )
+
+        SectionHeader(stringResource(R.string.section_rodemap))
+
+        var showLinkDialog by remember { mutableStateOf(false) }
+        if (rodemapToken.isEmpty()) {
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.rodemap_not_linked)) },
+                supportingContent = { Text(stringResource(R.string.rodemap_not_linked_desc)) },
+                trailingContent = {
+                    Button(
+                        onClick = { showLinkDialog = true },
+                        modifier = Modifier.dpadFocus()
+                    ) { Text(stringResource(R.string.btn_link_to_rodemap)) }
+                }
+            )
+        } else {
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.rodemap_linked)) },
+                supportingContent = { Text(stringResource(R.string.rodemap_linked_desc, serverName)) },
+                trailingContent = {
+                    OutlinedButton(
+                        onClick = {
+                            viewModel.set(Prefs.RODEMAP_TOKEN, "")
+                            viewModel.set(Prefs.RODEMAP_RECEIVER_ID, "")
+                        },
+                        modifier = Modifier.dpadFocus()
+                    ) { Text(stringResource(R.string.btn_unlink)) }
+                }
+            )
+        }
+        if (showLinkDialog) {
+            RodemapLinkDialog(onDismiss = { showLinkDialog = false })
+        }
 
         SectionHeader(stringResource(R.string.section_connection))
 
@@ -441,6 +477,70 @@ fun SettingsScreen(viewModel: MainViewModel) {
             )
         }
     }
+}
+
+@Composable
+private fun RodemapLinkDialog(onDismiss: () -> Unit) {
+    val ctx = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var code by remember { mutableStateOf("") }
+    var busy by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    val genericError = stringResource(R.string.rodemap_link_error)
+
+    fun connect() {
+        if (busy || code.length != 6) return
+        busy = true
+        error = null
+        scope.launch {
+            val prefs = ctx.applicationContext.getSharedPreferences(Prefs.NAME, Context.MODE_PRIVATE)
+            when (val result = RodemapLink.enroll(ctx.applicationContext, prefs, code)) {
+                is RodemapLink.EnrollResult.Success -> onDismiss()
+                is RodemapLink.EnrollResult.Failure -> {
+                    busy = false
+                    error = result.message ?: genericError
+                }
+            }
+        }
+    }
+
+    AlertDialog(
+        onDismissRequest = { if (!busy) onDismiss() },
+        title = { Text(stringResource(R.string.rodemap_link_dialog_title)) },
+        text = {
+            Column {
+                Text(stringResource(R.string.rodemap_link_dialog_desc))
+                Spacer(Modifier.height(12.dp))
+                OutlinedTextField(
+                    value = code,
+                    onValueChange = { code = it.filter { c -> c.isDigit() }.take(6) },
+                    label = { Text(stringResource(R.string.rodemap_link_code_label)) },
+                    singleLine = true,
+                    enabled = !busy,
+                    isError = error != null,
+                    supportingText = error?.let { msg -> { Text(msg) } },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.NumberPassword,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(onDone = { connect() }),
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = { connect() },
+                enabled = !busy && code.length == 6
+            ) { Text(stringResource(R.string.btn_connect)) }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = onDismiss,
+                enabled = !busy
+            ) { Text(stringResource(R.string.btn_cancel)) }
+        }
+    )
 }
 
 private fun canAutoLaunch(ctx: Context): Boolean =
