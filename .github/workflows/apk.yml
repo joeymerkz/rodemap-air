@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: |
           export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)
-          echo ${{ secrets.STORE }} | base64 -d > upload.jks
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in signing/rodemap-air.jks.enc -out upload.jks -pass pass:${{ secrets.KEYPASS }}
           echo ${{ secrets.LOCAL }} | base64 -d > local.properties
           chmod +x ./gradlew;
           ./gradlew assembleRelease bundleRelease --stacktrace
@@ -42,9 +42,9 @@ jobs:
       - name: Publish (GitHub)
         uses: softprops/action-gh-release@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: v${{ env.version }}
-          tag_name: v${{ env.version }}
+          token: ${{secrets.GITHUB_TOKEN}}
+          name: v${{env.version}}
+          tag_name: v${{env.version}}
           files: |
             ${{ env.main_project_module }}/build/outputs/apk/release/app-release.apk
             ${{ env.main_project_module }}/build/outputs/bundle/release/app-release.aab
