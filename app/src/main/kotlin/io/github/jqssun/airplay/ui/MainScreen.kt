@@ -635,26 +635,15 @@ private fun OverviewContent(
                     video()
                 }
                 if (state != ServerState.RUNNING || connections == 0) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(
-                            imageVector = if (connections > 0) Icons.Default.CastConnected else Icons.Default.Cast,
-                            contentDescription = null,
-                            modifier = Modifier.size(64.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-                        )
-                        Spacer(Modifier.height(12.dp))
-                        Text(
-                            text = if (grant) stringResource(R.string.local_network_desc) else when (state) {
-                                ServerState.STOPPED -> stringResource(R.string.server_stopped)
-                                ServerState.RUNNING -> stringResource(R.string.waiting_for_connection)
-                                ServerState.ERROR -> stringResource(R.string.error_starting_server)
-                            },
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(horizontal = 24.dp)
-                        )
-                    }
+                    IdleWelcome(
+                        serverName = serverName,
+                        status = if (grant) stringResource(R.string.local_network_desc) else when (state) {
+                            ServerState.STOPPED -> stringResource(R.string.server_stopped)
+                            ServerState.RUNNING -> stringResource(R.string.waiting_for_connection)
+                            ServerState.ERROR -> stringResource(R.string.error_starting_server)
+                        },
+                        showInstructions = !grant && state == ServerState.RUNNING
+                    )
                 } else if (connecting) {
                     Text(
                         text = stringResource(R.string.waiting_for_playback),
@@ -766,6 +755,54 @@ private fun OverviewContent(
                     }
                 }
             }
+        }
+    }
+}
+
+// Rodemap Air welcome screen: what the TV shows while no device is sharing.
+// Rendered by OverviewContent in place of the old cast-icon placeholder whenever the
+// receiver is stopped or has no connections; the existing state flow takes over the
+// same Box the moment a session starts, and this returns when it ends.
+@Composable
+private fun IdleWelcome(serverName: String, status: String, showInstructions: Boolean) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(horizontal = 32.dp)
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_launcher_foreground_img),
+            contentDescription = stringResource(R.string.cd_logo),
+            modifier = Modifier.size(148.dp)
+        )
+        Text(
+            text = stringResource(R.string.app_name),
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(6.dp))
+        Text(
+            text = stringResource(R.string.idle_tagline),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.primary,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(20.dp))
+        Text(
+            text = status,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
+        if (showInstructions) {
+            Spacer(Modifier.height(10.dp))
+            Text(
+                text = stringResource(R.string.idle_instruction, serverName),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
@@ -1076,7 +1113,7 @@ private fun DebugOverlay(info: DebugInfo, modifier: Modifier = Modifier) {
         val style = MaterialTheme.typography.labelSmall
         val headingStyle = style.copy(fontWeight = FontWeight.Bold)
         val color = Color.White.copy(alpha = 0.9f)
-        val headingColor = Color(0xFF80D8FF) // cyan
+        val headingColor = Color(0xFF54B9F5) // Rodemap sky blue, matches the theme primary
         val context = LocalContext.current
         debugOverlaySections(context, info).forEachIndexed { i, section ->
             if (i > 0) Spacer(Modifier.height(6.dp))
