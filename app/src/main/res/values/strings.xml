@@ -4,32 +4,37 @@
 
     <!-- Notification -->
     <string name="notification_channel">Rodemap Air</string>
-    <string name="notification_title">Rodemap Air Running</string>
-    <string name="notification_text">Accepting connections</string>
-    <string name="notification_pin_title">Rodemap Air PIN Required</string>
+    <string name="notification_title">Rodemap Air is on</string>
+    <string name="notification_text">Ready when you are</string>
+    <string name="notification_pin_title">Rodemap Air PIN required</string>
     <string name="notification_pin_text">PIN: %1$s</string>
     <string name="stop_service">Stop</string>
 
     <!-- Tabs -->
-    <string name="tab_overview">Overview</string>
+    <string name="tab_overview">Home</string>
     <string name="tab_logs">Logs</string>
     <string name="tab_settings">Settings</string>
 
     <!-- Overview -->
-    <string name="server_stopped">Server stopped</string>
-    <string name="waiting_for_connection">Waiting for connection...</string>
-    <string name="waiting_for_playback">Press start on the sender...</string>
-    <string name="error_starting_server">Error starting server</string>
+    <string name="server_stopped">Receiver is off</string>
+    <string name="waiting_for_connection">Ready to receive</string>
+    <string name="waiting_for_playback">Connected — press play on your device</string>
+    <string name="error_starting_server">Couldn’t start the receiver</string>
     <string name="connected_count">%d connected</string>
     <string name="error_label">Error</string>
-    <string name="stopped_label">Stopped</string>
+    <string name="stopped_label">Off</string>
     <string name="btn_start">Start</string>
     <string name="btn_stop">Stop</string>
     <string name="btn_allow">Allow</string>
-    <string name="btn_open_settings">Open settings</string>
-    <string name="local_network_label">Nearby devices access needed</string>
-    <string name="local_network_desc">Allow access to nearby devices so AirPlay devices can find and connect to this device</string>
-    <string name="unknown_track">Unknown</string>
+    <string name="btn_open_settings">Open Settings</string>
+    <string name="local_network_label">Nearby-device access needed</string>
+    <string name="local_network_desc">Rodemap Air needs access to nearby devices so your iPhone or iPad can find this TV.</string>
+    <string name="unknown_track">Unknown track</string>
+
+    <!-- Idle / welcome screen -->
+    <string name="idle_tagline">Less busywork. More progress.</string>
+    <string name="idle_instruction">On your iPhone or iPad, open Control Center, tap Screen Mirroring, and pick “%1$s”.</string>
+    <string name="cd_logo">Rodemap Air logo</string>
 
     <!-- Content descriptions -->
     <string name="cd_pip">Picture-in-Picture</string>
@@ -77,100 +82,100 @@
     <string name="export_logs_chooser_title">Export logs</string>
 
     <!-- Settings sections -->
-    <string name="section_server">Server</string>
+    <string name="section_server">Receiver</string>
     <string name="section_connection">Connection</string>
     <string name="section_display">Display</string>
-    <string name="section_decode">Decode</string>
-    <string name="section_developer">Developer</string>
+    <string name="section_decode">Playback</string>
+    <string name="section_developer">Under the hood</string>
 
     <!-- Settings: Server -->
-    <string name="setting_server_name">Server name</string>
-    <string name="setting_server_port">Server port</string>
-    <string name="setting_auto_start">Start server automatically</string>
-    <string name="setting_auto_start_desc">Start the AirPlay server when the app launches</string>
-    <string name="setting_boot_auto_start">Start server at boot</string>
-    <string name="setting_boot_auto_start_desc">Start the AirPlay server when the device starts</string>
-    <string name="setting_run_in_background">Run in background</string>
-    <string name="setting_run_in_background_desc">Keep the server running after leaving the app</string>
+    <string name="setting_server_name">Receiver name</string>
+    <string name="setting_server_port">Port</string>
+    <string name="setting_auto_start">Turn on when the app opens</string>
+    <string name="setting_auto_start_desc">Rodemap Air starts receiving as soon as the app launches</string>
+    <string name="setting_boot_auto_start">Turn on with this device</string>
+    <string name="setting_boot_auto_start_desc">Rodemap Air starts as soon as this device powers on</string>
+    <string name="setting_run_in_background">Keep running in the background</string>
+    <string name="setting_run_in_background_desc">Stay ready for new connections after you leave the app</string>
 
     <!-- Settings: Connection -->
-    <string name="setting_require_pin">Require PIN (Beta)</string>
-    <string name="setting_require_pin_desc">Require 4-digit PIN for each new connection</string>
-    <string name="setting_allow_new_conn">Allow new connections</string>
-    <string name="setting_allow_new_conn_desc">Drop current sender when a new one connects</string>
+    <string name="setting_require_pin">Require a PIN</string>
+    <string name="setting_require_pin_desc">Ask for the 4-digit PIN shown on this TV before a new device connects</string>
+    <string name="setting_allow_new_conn">Let a new device take over</string>
+    <string name="setting_allow_new_conn_desc">When another device connects, it takes the screen from the current one</string>
 
     <!-- Settings: Display -->
-    <string name="setting_idle_preview">Idle screen preview</string>
-    <string name="setting_idle_preview_desc">Show video surface while waiting for a connection</string>
-    <string name="setting_auto_fullscreen">Enter fullscreen automatically</string>
-    <string name="setting_auto_fullscreen_desc">Enter fullscreen when a sender connects</string>
-    <string name="setting_keep_screen_on">Keep screen on</string>
-    <string name="setting_keep_screen_on_desc">Prevent sleeping while a sender is connected</string>
-    <string name="setting_advertise_video">Advertise AirPlay video support</string>
-    <string name="setting_advertise_video_desc">When off, videos are cast as audio only streams</string>
-    <string name="setting_advertise_mirroring">Advertise AirPlay mirroring support</string>
-    <string name="setting_advertise_mirroring_desc">When off, the device is hidden from mirroring</string>
-    <string name="setting_advertise_audio">Advertise AirPlay audio support</string>
-    <string name="setting_advertise_audio_desc">When off, the device can only be used for mirroring and will be hidden from media players</string>
-    <string name="setting_alac">Advertise ALAC codec</string>
-    <string name="setting_alac_desc">Offer ALAC in the mDNS record; used for music streaming</string>
-    <string name="setting_aac">Advertise AAC codec</string>
-    <string name="setting_aac_desc">Offer AAC-ELD/AAC-LC in the mDNS record; used for screen mirroring audio</string>
-    <string name="setting_launch_on_connect">Open this application on connect</string>
-    <string name="setting_launch_on_connect_desc">Show the screen when a sender connects</string>
-    <string name="setting_launch_on_connect_no_permission">Tap to grant Display over other apps permission</string>
-    <string name="setting_discovery">Discoverable over</string>
-    <string name="setting_discovery_all_desc">Advertise on all usable interfaces. Uses NsdManager.</string>
-    <string name="setting_discovery_usb_desc">Only advertise over USB tethering to enforce wired connection. Uses custom mDNS responder.</string>
+    <string name="setting_idle_preview">Welcome screen preview</string>
+    <string name="setting_idle_preview_desc">Show the picture area behind the welcome screen while waiting for a device</string>
+    <string name="setting_auto_fullscreen">Go fullscreen on connect</string>
+    <string name="setting_auto_fullscreen_desc">Jump straight to fullscreen when a device starts sharing</string>
+    <string name="setting_keep_screen_on">Keep the screen on</string>
+    <string name="setting_keep_screen_on_desc">Keep this TV awake while a device is connected</string>
+    <string name="setting_advertise_video">Offer video</string>
+    <string name="setting_advertise_video_desc">When off, shared videos arrive as audio only</string>
+    <string name="setting_advertise_mirroring">Offer screen mirroring</string>
+    <string name="setting_advertise_mirroring_desc">When off, this TV is hidden from Screen Mirroring lists</string>
+    <string name="setting_advertise_audio">Offer audio</string>
+    <string name="setting_advertise_audio_desc">When off, this TV only shows up for mirroring, not in music apps</string>
+    <string name="setting_alac">ALAC (Apple Lossless)</string>
+    <string name="setting_alac_desc">Offer ALAC in the device announcement; used for music streaming</string>
+    <string name="setting_aac">AAC</string>
+    <string name="setting_aac_desc">Offer AAC in the device announcement; used for mirroring audio</string>
+    <string name="setting_launch_on_connect">Open Rodemap Air on connect</string>
+    <string name="setting_launch_on_connect_desc">Bring Rodemap Air to the front when a device connects</string>
+    <string name="setting_launch_on_connect_no_permission">Tap to let Rodemap Air appear over other apps</string>
+    <string name="setting_discovery">How devices find this TV</string>
+    <string name="setting_discovery_all_desc">Announce this TV on every network it can use</string>
+    <string name="setting_discovery_usb_desc">Announce only over a USB-tethered connection, for a fully wired setup</string>
     <string name="chip_all_networks">All networks</string>
     <string name="chip_usb_only">USB only</string>
     <string name="setting_resolution">Resolution</string>
-    <string name="setting_resolution_desc">Video resolution advertised to senders</string>
+    <string name="setting_resolution_desc">Picture size offered to devices</string>
     <string name="setting_resolution_placeholder">[W]x[H]</string>
     <string name="setting_resolution_width">Width</string>
     <string name="setting_resolution_height">Height</string>
-    <string name="setting_max_fps">Maximum FPS</string>
-    <string name="setting_max_fps_desc">Maximum frame rate advertised to senders</string>
+    <string name="setting_max_fps">Max frame rate</string>
+    <string name="setting_max_fps_desc">Highest frame rate offered to devices</string>
     <string name="setting_max_fps_placeholder">FPS</string>
-    <string name="setting_overscanned">Overscanned</string>
-    <string name="setting_overscanned_desc">Add pixel boundary for full-screen overscan displays</string>
+    <string name="setting_overscanned">Overscan padding</string>
+    <string name="setting_overscanned_desc">Add a small border so fullscreen pictures are not cut off at the edges of the TV</string>
     <string name="chip_custom">Custom</string>
     <string name="chip_device_portrait">Portrait</string>
     <string name="chip_device_landscape">Landscape</string>
 
     <!-- Settings: Decode -->
     <string name="setting_h265">H.265 (HEVC)</string>
-    <string name="setting_h265_desc">Auto only uses H.265 decoders known to work</string>
-    <string name="setting_enforce_sdr">MediaFormat.KEY_COLOR_TRANSFER</string>
-    <string name="setting_enforce_sdr_desc">Tag video as limited SDR; disable to allow HDR sources to pass through</string>
-    <string name="setting_sw_alac">Force software ALAC decoder</string>
-    <string name="setting_sw_alac_desc">Always use software ALAC decoder instead of system decoder, may affect latency</string>
-    <string name="setting_sw_aac">Force software AAC decoder</string>
-    <string name="setting_sw_aac_desc">Always use software AAC decoder instead of system decoder, may affect latency</string>
-    <string name="setting_sync_client_volume">Sync sender volume</string>
-    <string name="setting_sync_client_volume_desc">Use sender volume for receiver volume automatically</string>
+    <string name="setting_h265_desc">Auto uses only H.265 decoders known to work well</string>
+    <string name="setting_enforce_sdr">Keep the picture in SDR</string>
+    <string name="setting_enforce_sdr_desc">Tag the picture as standard dynamic range (MediaFormat.KEY_COLOR_TRANSFER); turn off to let HDR sources pass through</string>
+    <string name="setting_sw_alac">Software ALAC decoding</string>
+    <string name="setting_sw_alac_desc">Always decode ALAC in software instead of the system decoder; may add a little delay</string>
+    <string name="setting_sw_aac">Software AAC decoding</string>
+    <string name="setting_sw_aac_desc">Always decode AAC in software instead of the system decoder; may add a little delay</string>
+    <string name="setting_sync_client_volume">Match the sender’s volume</string>
+    <string name="setting_sync_client_volume_desc">The sending device’s volume drives this TV’s volume automatically</string>
 
     <!-- Settings: Developer -->
-    <string name="setting_developer_options">Developer options</string>
-    <string name="setting_developer_options_desc">Show options for advanced users</string>
-    <string name="setting_key_allow_frame_drop">MediaFormat.KEY_ALLOW_FRAME_DROP</string>
-    <string name="setting_key_allow_frame_drop_desc">Allow video decoders to drop frames internally to keep up on Android 10+</string>
-    <string name="setting_realtime_decoder_priority">MediaFormat.KEY_PRIORITY</string>
-    <string name="setting_realtime_decoder_priority_desc">Request real-time scheduling for audio decoder</string>
-    <string name="setting_operating_rate">MediaFormat.KEY_OPERATING_RATE</string>
-    <string name="setting_operating_rate_desc">Request maximum operating rate from decoder</string>
+    <string name="setting_developer_options">Advanced tuning</string>
+    <string name="setting_developer_options_desc">Extra controls for fine-tuning playback; most people never need these</string>
+    <string name="setting_key_allow_frame_drop">Let the decoder drop frames</string>
+    <string name="setting_key_allow_frame_drop_desc">Allow the video decoder to drop frames internally to keep up on Android 10 and up (MediaFormat.KEY_ALLOW_FRAME_DROP)</string>
+    <string name="setting_realtime_decoder_priority">Real-time decoder priority</string>
+    <string name="setting_realtime_decoder_priority_desc">Ask for real-time scheduling for the audio decoder (MediaFormat.KEY_PRIORITY)</string>
+    <string name="setting_operating_rate">Max decoder rate</string>
+    <string name="setting_operating_rate_desc">Ask the decoder for its maximum operating rate (MediaFormat.KEY_OPERATING_RATE)</string>
     <string name="chip_auto">Auto</string>
     <string name="chip_on">On</string>
     <string name="chip_off">Off</string>
-    <string name="setting_low_latency">Low latency</string>
-    <string name="setting_low_latency_desc">Use low-latency audio decoding for output; this uses more power and CPU</string>
+    <string name="setting_low_latency">Low-latency audio</string>
+    <string name="setting_low_latency_desc">Decode audio with the lowest possible delay; uses more power and CPU</string>
     <string name="setting_scheduled_output_buffer_release">Aligned frame pacing</string>
-    <string name="setting_scheduled_output_buffer_release_desc">Schedule each decoded frame to the VSYNC matching its presentation timestamp</string>
-    <string name="setting_audio_delay">Override audio delay</string>
-    <string name="setting_audio_delay_desc">Set a custom audio latency reported to sender</string>
+    <string name="setting_scheduled_output_buffer_release_desc">Show each frame on the display refresh that matches its timestamp</string>
+    <string name="setting_audio_delay">Custom audio delay</string>
+    <string name="setting_audio_delay_desc">Report a fixed audio delay to the sender instead of the measured one</string>
     <string name="audio_delay_value">%dms</string>
-    <string name="setting_audio_auto_buffer">Automatic software audio buffer size</string>
-    <string name="setting_audio_auto_buffer_desc">Adaptively tune the software audio buffer according to network conditions and device performance; slider adjusts how much jitter the buffer can absorb</string>
+    <string name="setting_audio_auto_buffer">Automatic audio buffer</string>
+    <string name="setting_audio_auto_buffer_desc">Tune the software audio buffer to your network and this device; the slider sets how much wobble it can absorb</string>
     <string name="audio_adaptive_value">%1$d%% (%2$s)</string>
     <string-array name="audio_adaptive_step_names">
         <item>Lowest Latency</item>
@@ -179,14 +184,14 @@
         <item>Better Stability</item>
         <item>Best Stability</item>
     </string-array>
-    <string name="setting_audio_cushion_ms">Software audio buffer (ms)</string>
-    <string name="setting_audio_cushion_ms_desc">Buffer to absorb network and decoder jitter: shorter duration means lower latency; longer duration means fewer glitches</string>
-    <string name="setting_oboe_buffer_frames">Hardware output buffer (frames)</string>
-    <string name="setting_oboe_buffer_frames_desc">Stream buffer between this app and the audio device to absorb CPU scheduling jitter only. Keep at 0 for automatic sizing.</string>
-    <string name="setting_debug_overlay">Show debug overlay</string>
-    <string name="setting_debug_overlay_desc">Overlay stream stats on video: codec, FPS, bitrate, jitter, frames, drops</string>
-    <string name="setting_benchmark_log">Enable debug logging</string>
-    <string name="setting_benchmark_log_desc">Log stream stats to logcat: codec, FPS, bitrate, jitter, frames, drops</string>
+    <string name="setting_audio_cushion_ms">Audio buffer (ms)</string>
+    <string name="setting_audio_cushion_ms_desc">Room to absorb network and decoder hiccups: shorter means less delay, longer means fewer glitches</string>
+    <string name="setting_oboe_buffer_frames">Output buffer (frames)</string>
+    <string name="setting_oboe_buffer_frames_desc">Buffer between the app and the audio hardware, for CPU hiccups only; leave at 0 to size it automatically</string>
+    <string name="setting_debug_overlay">Stream stats on screen</string>
+    <string name="setting_debug_overlay_desc">Overlay codec, frame rate, bitrate, jitter, frames and drops on the picture</string>
+    <string name="setting_benchmark_log">Log stream stats</string>
+    <string name="setting_benchmark_log_desc">Write codec, frame rate, bitrate, jitter, frames and drops to the system log</string>
 
     <!-- Debug overlay -->
     <string name="debug_section_video">Video</string>
