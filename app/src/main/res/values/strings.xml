@@ -193,6 +193,21 @@
     <string name="setting_benchmark_log">Log stream stats</string>
     <string name="setting_benchmark_log_desc">Write codec, frame rate, bitrate, jitter, frames and drops to the system log</string>
 
+    <!-- Rodemap account link -->
+    <string name="section_rodemap">Rodemap</string>
+    <string name="rodemap_not_linked">Not linked yet</string>
+    <string name="rodemap_not_linked_desc">Link this TV to your Rodemap account to manage it from Rodemap.</string>
+    <string name="btn_link_to_rodemap">Link to Rodemap</string>
+    <string name="rodemap_linked">Linked to Rodemap</string>
+    <string name="rodemap_linked_desc">This TV shows up in your Rodemap account as “%1$s”.</string>
+    <string name="btn_unlink">Unlink</string>
+    <string name="rodemap_link_dialog_title">Link to Rodemap</string>
+    <string name="rodemap_link_dialog_desc">In Rodemap, open Work, then Rodemap Air, then Add a receiver — and type the 6-digit code here.</string>
+    <string name="rodemap_link_code_label">6-digit code</string>
+    <string name="rodemap_link_error">That code didn\'t work — check it and try again.</string>
+    <string name="btn_connect">Connect</string>
+    <string name="btn_cancel">Cancel</string>
+
     <!-- Debug overlay -->
     <string name="debug_section_video">Video</string>
     <string name="debug_section_audio">Audio</string>
