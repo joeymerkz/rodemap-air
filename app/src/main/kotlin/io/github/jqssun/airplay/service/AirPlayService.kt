@@ -52,6 +52,7 @@ import io.github.jqssun.airplay.discovery.MdnsService
 import io.github.jqssun.airplay.discovery.NsdServiceManager
 import io.github.jqssun.airplay.discovery.UsbMdnsAdvertiser
 import io.github.jqssun.airplay.download.VideoDownloader
+import io.github.jqssun.airplay.link.RodemapLink
 import io.github.jqssun.airplay.renderer.AirPlayVideoPlayer
 import io.github.jqssun.airplay.renderer.AudioRenderer
 import io.github.jqssun.airplay.renderer.VideoRenderer
@@ -61,6 +62,7 @@ import java.security.SecureRandom
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -344,6 +346,16 @@ class AirPlayService : LifecycleService(), RaopCallbackHandler, LogListener {
                 .filter { Prefs.all[it]?.restart == true }
                 .debounce(SERVER_RESTART_DEBOUNCE_MS)
                 .collect { _restartServer() }
+        }
+        // Rodemap link heartbeat: runs for the service's lifetime, only sends
+        // while a link token is stored (see link/RodemapLink.kt)
+        lifecycleScope.launch {
+            while (true) {
+                if (RodemapLink.isLinked(prefs)) {
+                    RodemapLink.heartbeat(this@AirPlayService, prefs)
+                }
+                delay(HEARTBEAT_INTERVAL_MS)
+            }
         }
     }
 
@@ -1193,6 +1205,7 @@ class AirPlayService : LifecycleService(), RaopCallbackHandler, LogListener {
 
         private const val AUDIO_CONFIG_DEBOUNCE_MS = 500L
         private const val SERVER_RESTART_DEBOUNCE_MS = 500L
+        private const val HEARTBEAT_INTERVAL_MS = 60_000L
 
         // airplay volume is linear in dB along sender slider
         private fun _dbToFrac(db: Float) = if (db <= -144f) 0f else ((db + 30f) / 30f).coerceIn(0f, 1f)
